@@ -38,9 +38,13 @@ func NewTail(cname string, handler Handler) *Tail {
 	tail.Handler = handler
 	return tail
 }
+
+// SetEndWaitTime set endwait time
 func (t *Tail) SetEndWaitTime(times int) {
 	t.endwait = times
 }
+
+// SetInterval set interval time
 func (t *Tail) SetInterval(times int) {
 	t.interval = times
 }

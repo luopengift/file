@@ -7,6 +7,7 @@ import (
 	"github.com/luopengift/log"
 )
 
+// Cat cat
 type Cat struct {
 	Paths []string
 	Files []string
@@ -15,6 +16,7 @@ type Cat struct {
 	buf   chan []byte
 }
 
+// NewCatPaths new cat paths
 func NewCatPaths(paths ...string) *Cat {
 	cat := &Cat{
 		Paths: paths,
@@ -23,6 +25,7 @@ func NewCatPaths(paths ...string) *Cat {
 	return cat
 }
 
+// NewCatFiles new cat files
 func NewCatFiles(files ...string) *Cat {
 	cat := &Cat{
 		Files: files,
@@ -30,6 +33,8 @@ func NewCatFiles(files ...string) *Cat {
 	}
 	return cat
 }
+
+// ReadLine readline
 func (c *Cat) ReadLine() error {
 	// regexp, err := regexp.Compile(c.Regex)
 	// if err != nil {
@@ -64,6 +69,7 @@ func (c *Cat) ReadLine() error {
 	return nil
 }
 
+// NextLine next line
 func (c *Cat) NextLine() <-chan []byte {
 	return c.buf
 }
