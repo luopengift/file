@@ -83,7 +83,7 @@ func (f *File) ReadOneByte(offset int64) ([]byte, error) {
 
 // TrancateOffsetByLF 根据offset值,往前计算该行的起始偏移量
 func (f *File) TrancateOffsetByLF(offset int64) (int64, error) {
-	for ; offset >= 0; offset-- {
+	for ; offset > 0; offset-- {
 		buf, err := f.ReadOneByte(offset)
 		if err != nil {
 			return 0, err

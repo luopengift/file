@@ -85,3 +85,12 @@ func (c *Cat) Read(b []byte) (int, error) {
 	n := copy(b, msg)
 	return n, nil
 }
+
+// Close close
+func (c *Cat) Close() error {
+	for _, tail := range c.tails {
+		tail.Close()
+	}
+	close(c.buf)
+	return nil
+}
