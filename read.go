@@ -58,7 +58,7 @@ func (t *Tail) Close() error {
 // ReOpen re open
 func (t *Tail) ReOpen() error {
 	if err := t.File.Close(); err != nil {
-		return log.Errorf("name: %v, %v", t.name, err)
+		return fmt.Errorf("name: %v, %v", t.name, err)
 	}
 	t.name = t.Handler.Handle(t.cname)
 	err := t.Open()
@@ -95,12 +95,12 @@ func (t *Tail) rotate() error {
 func (t *Tail) ReadLine() error {
 	offset, err := t.TrancateOffsetByLF(t.seek)
 	if err != nil {
-		log.Error("<Trancate offset:%d,Error:%+v>", t.seek, err)
+		log.Errorf("<Trancate offset:%d,Error:%+v>", t.seek, err)
 		return err
 	}
 	_, err = t.Seek(offset, 0)
 	if err != nil {
-		log.Error("<seek offset[%d] error:%+v>", t.seek, err)
+		log.Errorf("<seek offset[%d] error:%+v>", t.seek, err)
 		return err
 	}
 	endintervel := time.Duration(t.endwait) * time.Millisecond
@@ -115,7 +115,7 @@ func (t *Tail) ReadLine() error {
 			select {
 			case <-endTimer.C:
 				t.Stop()
-				return log.Errorf("over %v second, no more new msg", t.endwait)
+				return fmt.Errorf("over %v second, no more new msg", t.endwait)
 			case <-renameTimer.C:
 				t.rotate()
 			}

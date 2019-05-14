@@ -62,7 +62,7 @@ func (c *Cat) ReadLine() error {
 		}(tail)
 		go func(tail *Tail) {
 			if err := tail.ReadLine(); err != nil {
-				log.Error("%v", err)
+				log.Errorf("%v", err)
 			}
 		}(tail)
 	}
